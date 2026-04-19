@@ -120,7 +120,8 @@ fun GithubLauncherApp(
 
 @Composable
 fun LoginScreen(onLogin: (String) -> Unit) {
-    val scope = rememberCoroutineScope()
+    val ctx    = LocalContext.current
+    val scope  = rememberCoroutineScope()
     var tokenInput by remember { mutableStateOf("") }
     var loading    by remember { mutableStateOf(false) }
     var error      by remember { mutableStateOf<String?>(null) }
@@ -282,7 +283,7 @@ fun LoginScreen(onLogin: (String) -> Unit) {
                         }
                     }
                     Spacer(Modifier.height(16.dp))
-                    TextButton(onClick = { (ctx as? ComponentActivity)?.let { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/settings/tokens/new"))) } }) {
+                    TextButton(onClick = { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/settings/tokens/new"))) }) {
                         Icon(Icons.Outlined.OpenInBrowser, null, modifier = Modifier.size(14.dp)); Spacer(Modifier.width(6.dp))
                         Text("Create a new token", fontSize = 12.sp)
                     }
